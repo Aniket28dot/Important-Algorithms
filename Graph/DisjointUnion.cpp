@@ -22,7 +22,7 @@ int findParent(int node, vector<int>&parent){
     return parent[node] = findParent(parent[node], parent);
 }
 
-void Union(int v, int u, vector<int> &parent, vector<int> &rank){
+void UnionByRank(int v, int u, vector<int> &parent, vector<int> &rank){
     v = findParent(v, parent);
     u = findParent(u, parent);
     
@@ -38,6 +38,23 @@ void Union(int v, int u, vector<int> &parent, vector<int> &rank){
     }
 }
 
+//Initialize the size of every node as 1 because initially each node is a single component.
+void UnionBySize(int v, int u, vector<int> &parent, vector<int> &rank){
+    v = findParent(v, parent);
+    u = findParent(u, parent);
+    
+    //this is the condition when both nodes belong to the same component then we do nothing and simply return;
+    if(u == v) return;
+    if(size[v] < size[u]){
+        parent[v] = u;
+        size[u] += size[v];
+    }
+    else{
+        parent[u] = v;
+        size[v] += size[u];
+    }
+}
+
 int main()
 {
     int n; cin >> n;
@@ -47,7 +64,7 @@ int main()
     int m; cin >> m;
     while(m--){
         int a, b; cin >> a >> b;
-        Union(a, b, parent, rank);
+        UnionByRank(a, b, parent, rank);
     }
     
     //Check if 2 nodes belong to the same component or not.
