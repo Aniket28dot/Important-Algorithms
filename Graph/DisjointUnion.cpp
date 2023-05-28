@@ -26,6 +26,9 @@ void UnionByRank(int v, int u, vector<int> &parent, vector<int> &rank){
     v = findParent(v, parent);
     u = findParent(u, parent);
     
+    //below condition is when both nodes belong to the same component (i.e. have same parents) then there is no need to do a Union.
+    if(u == v) reutrn;
+    
     if(rank[v] < rank[u]){
         parent[v] = u;
     }
@@ -43,8 +46,9 @@ void UnionBySize(int v, int u, vector<int> &parent, vector<int> &rank){
     v = findParent(v, parent);
     u = findParent(u, parent);
     
-    //this is the condition when both nodes belong to the same component then we do nothing and simply return;
+    //below condition is when both nodes belong to the same component (i.e. have same parents) then there is no need to do a Union.
     if(u == v) return;
+    
     if(size[v] < size[u]){
         parent[v] = u;
         size[u] += size[v];
