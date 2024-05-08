@@ -1,3 +1,3 @@
 # Important-Algorithms
 
-Stashing some important algorithm codes for easy reference.
+Great algos, with simple implementations!
